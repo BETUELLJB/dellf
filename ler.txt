@@ -1,0 +1,31 @@
+O erro acontece porque, no código, forçamos uma exceção com o comando:
+
+```php esse codigo esta na linha64 do candidatecontroller
+throw new \Exception('Erro simulado!');
+```
+
+### **Como funciona o processo:**
+1. **Início da Transação:**
+   - Quando o método `update` é chamado, o código inicia uma transação com `DB::beginTransaction()`.
+
+2. **Atualização dos Dados:**
+   - O Laravel tenta atualizar o registro na base de dados com os valores fornecidos.
+
+3. **Erro Forçado:**
+   - Durante o processo, a linha `throw new \Exception('Erro simulado!');` é executada. Isso simula uma situação onde algo dá errado.
+
+4. **Captura da Exceção:**
+   - O código dentro de `catch (\Exception $e)` é ativado. Isso indica que houve um erro no bloco `try`.
+
+5. **Reversão da Transação:**
+   - Como ocorreu um erro, a transação é revertida com `DB::rollBack()`, cancelando todas as alterações feitas no banco de dados até aquele ponto.
+
+6. **Mensagem de Erro:**
+   - O código armazena a mensagem de erro na sessão com:
+     ```php
+     return redirect()->back()->with('error', 'Erro ao atualizar candidato: ' . $e->getMessage() . ' | Transação revertida!');
+     ```
+   - Essa mensagem é exibida na interface do utilizador, explicando o que aconteceu.
+
+### **Resumo:**
+O sistema detecta o erro e, para evitar inconsistências no banco de dados, desfaz qualquer operação incompleta (como a atualização parcial). Isso garante que os dados fiquem íntegros e o utilizador seja informado sobre o problema.
