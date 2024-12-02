@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Dashboard')</title>
+    <title>@yield('title', 'Home')</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     
@@ -19,7 +19,7 @@
         }
 
         body {
-            background-color: var(--background-light);
+            background-color: #2e2e2e;
             font-family: 'Inter', system-ui, -apple-system, sans-serif;
             color: var(--text-dark);
             min-height: 100vh;
@@ -53,7 +53,7 @@
             align-items: center;
             padding: 16px 24px;
             text-decoration: none;
-            color: var(--text-dark);
+            color: #2496be;
             transition: all var(--transition-speed);
             border-left: 3px solid transparent;
         }
@@ -61,7 +61,7 @@
         .vertical-menu-item:hover {
             background-color: rgba(107, 70, 193, 0.08);
             color: var(--primary-color);
-            border-left-color: var(--primary-color);
+            border-left-color: #2496be;
         }
 
         .vertical-menu-item i {
@@ -222,21 +222,21 @@
         </div>
         
         <div class="user-profile">
-            <img src="/default-avatar.png" alt="User Avatar">
+            <img src="C:\xampp\htdocs\Laravel\dell\public\assets\img\fundo1.png" alt="User Avatar">
             <div class="user-info">
                 <span class="user-name">{{ Auth::user()->name ?? 'User' }}</span>
-                <span class="user-role">Administrator</span>
+                <span class="user-role">{{ Auth::user()->nivel_acesso ?? 'nivel_acesso'}}</span>
             </div>
             <i class="bi bi-chevron-down ms-2"></i>
             
             <div class="user-menu">
                 <a href="/profile" class="user-menu-item">
                     <i class="bi bi-person"></i>
-                    Profile
+                    Perfil
                 </a>
                 <a href="/settings" class="user-menu-item">
                     <i class="bi bi-gear"></i>
-                    Settings
+                    Definições
                 </a>
                 <hr class="my-2">
                 <form method="POST" action="{{ route('logout') }}">
@@ -254,33 +254,35 @@
     <nav class="vertical-menu">
         <a href="/dashboard" class="vertical-menu-item">
             <i class="bi bi-house-door"></i>
-            <span>Dashboard</span>
+            <span>Home</span>
         </a>
         <a href="/users" class="vertical-menu-item">
             <i class="bi bi-people"></i>
-            <span>Users</span>
+            <span>Usuários</span>
         </a>
-        <a href="/products" class="vertical-menu-item">
+        <a href="/pacientes" class="vertical-menu-item">
             <i class="bi bi-box"></i>
-            <span>Products</span>
+            <span>Pacientes</span>
+        </a>
+        <a href="/devices" class="vertical-menu-item">
+            <i class="bi bi-film"></i>
+            <span>Hardware</span>
+        </a>
+        <a href="/chat" class="vertical-menu-item">
+            <i class="bi bi-graph-up"></i>
+            <span>Chat</span>
         </a>
         <a href="/logs" class="vertical-menu-item">
             <i class="bi bi-cart"></i>
             <span>Logs</span>
         </a>
-        <a href="/movies" class="vertical-menu-item">
-            <i class="bi bi-film"></i>
-            <span>Movies</span>
-        </a>
-        <a href="/reports" class="vertical-menu-item">
-            <i class="bi bi-graph-up"></i>
-            <span>Reports</span>
-        </a>
         <a href="/settings" class="vertical-menu-item">
             <i class="bi bi-gear"></i>
-            <span>Settings</span>
+            <span>Configurações</span>
         </a>
     </nav>
+
+
 
     <!-- Main Content -->
     <main class="main-content">
@@ -294,6 +296,36 @@
             @yield('content')
         </div>
     </main>
+
+
+    @if (session('error'))
+        <!-- Modal de Erro -->
+        <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header bg-danger text-white">
+                        <h5 class="modal-title" id="errorModalLabel">Erros de nivel de acesso!</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        {{ session('error') }}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Script para abrir o modal automaticamente -->
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
+                errorModal.show();
+            });
+        </script>
+    @endif
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>

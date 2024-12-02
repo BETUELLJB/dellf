@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
+            $table->enum('nivel_acesso', ['admin', 'gerente', 'operador'])->default('operador');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->boolean('two_factor_enabled')->default(false);

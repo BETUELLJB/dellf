@@ -13,8 +13,6 @@
             @csrf
 
             <div class="text-center">
-                <h2 class="text-3xl font-bold text-gray-800">Bem-vindo de volta</h2>
-                <p class="text-gray-500 mt-2">Faça login para continuar</p>
             </div>
 
             <div>
@@ -63,7 +61,7 @@
             <div>
                 <button type="submit" 
                     class="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white py-3 rounded-lg hover:opacity-90 transition-all">
-                    <i class="fas fa-sign-in-alt mr-2"></i>Entrar
+                    <i class="fas fa-sign-in-alt mr-2"></i>Acessar
                 </button>
             </div>
 
@@ -80,11 +78,6 @@
                 <a href="{{ route('auth.github') }}" 
                     class="w-full flex items-center justify-center bg-black text-white py-3 rounded-lg hover:bg-gray-800">
                     <i class="fab fa-github mr-2"></i>Entrar com GitHub
-                </a>
-                
-                <a href="{{ route('register') }}" 
-                    class="w-full flex items-center justify-center bg-green-500 text-white py-3 rounded-lg hover:bg-green-600">
-                    <i class="fas fa-user-plus mr-2"></i>Registrar
                 </a>
             </div>
         </form>
