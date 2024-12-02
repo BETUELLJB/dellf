@@ -1,5 +1,5 @@
 <<<<<<< HEAD
-1- Testes unitários com Pest
+1- Testes unitários com Unit
 2- Transações em Aplicações Laravel ( DB::beginTransaction(), DB::commit() e DB::rollback())
 3- Autenticação e Autorização
 4- API de aplicação
